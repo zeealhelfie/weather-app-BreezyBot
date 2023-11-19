@@ -1,0 +1,229 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.app {
+  width: 100%;
+  height: 110vh;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0, 4);
+  color: aliceblue;
+}
+
+.app:before {
+  content: "";
+  /* background: url("./assets/ubg1.jpg") no-repeat center center/cover; */
+  background-color: black;
+
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+html,
+body,
+.root,
+.search {
+  background-color: black;
+  height: 100%;
+  width: 100%;
+}
+
+.loader-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.container {
+  height: 70vh;
+  margin: auto;
+  padding: 0 2rem;
+  top: 10%;
+  top: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background: rgba(3, 4, 14, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(5.5px);
+  -webkit-backdrop-filter: blur(5.5px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  margin-top: 2rem;
+}
+
+.app.top {
+  width: 100%;
+  margin: 1rem auto;
+}
+
+.app .description {
+  position: relative;
+}
+
+.app .bottom {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  width: 100%;
+  margin: 1rem auto;
+  padding: 1rem;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.app .search {
+  text-align: center;
+  padding: 4rem;
+  align-items: flex-start;
+  height: 150vh;
+  width: auto;
+}
+
+.app input {
+  padding: 0.7rem 1.5rem;
+  font-size: 1.2rem;
+  border-radius: 25px;
+  border: 1px solid rgba(31, 38, 135, 0.37);
+  background: rgba(255, 255, 255, 0.1);
+  text-overflow: ellipsis;
+}
+
+::placeholder {
+  color: aliceblue;
+}
+
+.dropdown-menu {
+  width: 250px;
+  display: block;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  margin-bottom: 20px;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+option {
+  background-color: black;
+}
+
+
+::-webkit-scrollbar {
+  width: 1.25rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #000000, #6b21a8);
+  border: 5px solid transparent;
+  border-radius: 12px;
+  background-clip: content-box;
+}
+
+@media (max-width: 600px) {
+  .bottom {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 700px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 700px !important;
+  }
+}
+
+/* Daily forcast cards */
+.forecast-row {
+  display: flex;
+  margin-top: 20px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  justify-content: space-between;
+}
+
+.forecast-card {
+  width: 200px;
+  padding: 1rem;
+  margin-right: 1rem;
+  color: #fff;
+  background-color: black;
+  border-radius: 8px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+
+@media (max-width: 768px) {
+  .forecast-row {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .forecast-card {
+    margin-bottom: 1rem;
+  }
+
+  .city-input{
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .app .search {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 395px) {
+  .app .search {
+    padding: 1rem;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+}
+
+.weather-attribute {
+  text-align: center;
+  align-items: center;
+}
+
+
+.mic-container {
+  background: linear-gradient(to right, #401366, #6b21a8);
+  border-radius: 100%;
+  background-clip: content-box;
+}
+
+.preloader-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999; 
+}
+
+.preloader {
+  max-width: 100%;
+  height: auto;
+}
