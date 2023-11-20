@@ -7,9 +7,7 @@ import toast from "react-hot-toast";
 import Loader from "react-js-loader";
 import Footer from "./Footer";
 
-
-import Navbar from './Navbar';
-import Converter from './Converter';
+import Navbar from "./Navbar";
 
 import Maps from "./Maps";
 
@@ -28,10 +26,9 @@ const TextSearch = ({ setCity }) => {
     resetTranscript,
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
-
   useEffect(() => {
     setCity(transcript);
-  }, [transcript]);
+  }, [transcript, setCity]);
 
   return (
     <div className="mic-container h-[50px] w-[50px]">
@@ -61,7 +58,6 @@ const TextSearch = ({ setCity }) => {
   );
 };
 
-
 export default function Home() {
   const [weather, setWeather] = useState("");
   const [forecast, setForecast] = useState([]);
@@ -70,16 +66,14 @@ export default function Home() {
   const [inputType, setInputType] = useState("city");
   const [loading, setLoading] = useState(false);
   const [city, setCity] = useState("");
-  const [showMap,setShowMap] = useState(false);
+  const [showMap, setShowMap] = useState(false);
 
-  const apiKey = process.env.REACT_APP_API_KEY; //api removed for security reasons(find api key info from readme.md ) 
-
+  const apiKey = process.env.REACT_APP_API_KEY;
 
   const handleInputTypeChange = (e) => {
     setInputType(e.target.value);
-    if(e.target.value === "city" && showMap){
+    if (e.target.value === "city" && showMap) {
       setShowMap(false);
-
     }
   };
 
@@ -92,8 +86,6 @@ export default function Home() {
     }
     return `${value}K`;
   };
-
-  // Function to fetch weather data
 
   const fetchWeatherData = async (loc, lat, lon, units) => {
     let url;
@@ -122,13 +114,12 @@ export default function Home() {
     }
   };
 
-  // Function to fetch weather data for 7 days (forecast)
   const fetchForecastData = async (loc, lat, lon, units) => {
     let forecastURL;
     if (loc) {
-      forecastURL = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${loc}&cnt=7&APPID=eec48f1630281ec926acbcbb20931f70&units=${units}`;
+      forecastURL = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${loc}&cnt=7&appid=${apiKey}&units=${units}`;
     } else if (lat && lon) {
-      forecastURL = `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=7&APPID=eec48f1630281ec926acbcbb20931f70&units=${units}`;
+      forecastURL = `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=7&appid=${apiKey}&units=${units}`;
     }
 
     try {
@@ -173,7 +164,6 @@ export default function Home() {
       setLoading(false);
     } catch (error) {
       if (error.response && error.response.status === 404) {
-        //Error handeling done using try and catch block .
         toast.error("Inavlid city name");
         setWeather("");
       } else {
@@ -204,25 +194,17 @@ export default function Home() {
     }
   };
 
-  // Add useEffect to update weather data when the unit changes
-  // useEffect(() => {
-  //   updateWeatherData();
-  // }, [units]);
-
   const handleUnitChange = (selectedUnit) => {
     updateWeatherData(selectedUnit);
   };
-  const handleMapChange = () =>{
+  const handleMapChange = () => {
     setShowMap(!showMap);
-  }
+  };
   return (
-    //On clicking the button of GetWeather the api gets called and fetched and data is displayed.
-
     <div className="app">
-      
-    <Navbar />
+      <Navbar />
       <div className="search">
-        <LocationLogger/>
+        <LocationLogger />
         <form
           onSubmit={apiCall}
           className="flex flex-col md:flex-row items-center md:items-center lg:pl-9"
@@ -262,27 +244,36 @@ export default function Home() {
                 name="lon"
                 className="m-2 lg:w-1/4 w-max"
               />
-              <button type="button"  className="m-4 px-12 py-2.5 md:py-1.8 mt-4 transition-all ease-in duration-75 bg-gradient-to-r from-purple-950 from-20% via-purple-900 via-60% to-purple-800 to-80% rounded-full hover:scale-105 font-bold" onClick={handleMapChange}> {showMap ? "Hide Map" : "Show Map"} </button>
+              <button
+                type="button"
+                className="m-4 px-12 py-2.5 md:py-1.8 mt-4 transition-all ease-in duration-75 bg-gradient-to-r from-purple-950 from-20% via-purple-900 via-60% to-purple-800 to-80% rounded-full hover:scale-105 font-bold"
+                onClick={handleMapChange}
+              >
+                {" "}
+                {showMap ? "Hide Map" : "Show Map"}{" "}
+              </button>
               <br />
             </>
           )}
-<div>
-          <button className="m-4 px-12 py-2.5 md:py-1.8 mt-4 transition-all ease-in duration-75 bg-gradient-to-r from-purple-950 from-20% via-purple-900 via-60% to-purple-800 to-80% rounded-full hover:scale-105 font-bold">
-            Get Weather
-          </button>
-          {/* Toggle button for forecast */}
-          <button
-            className="m-3 px-11 py-2.5 mt-4 transition-all ease-in duration-75 bg-gradient-to-r from-purple-950 from-20% via-purple-900 via-60% to-purple-800 to-80% rounded-full hover:scale-105 font-bold ml-4"
-            onClick={toggleForecast}
-          >
-            {showForecast ? "Hide Forecast" : "Show Forecast"}
-          </button>
+          <div>
+            <button className="m-4 px-12 py-2.5 md:py-1.8 mt-4 transition-all ease-in duration-75 bg-gradient-to-r from-purple-950 from-20% via-purple-900 via-60% to-purple-800 to-80% rounded-full hover:scale-105 font-bold">
+              Get Weather
+            </button>
+            {/* Toggle button for forecast */}
+            <button
+              className="m-3 px-11 py-2.5 mt-4 transition-all ease-in duration-75 bg-gradient-to-r from-purple-950 from-20% via-purple-900 via-60% to-purple-800 to-80% rounded-full hover:scale-105 font-bold ml-4"
+              onClick={toggleForecast}
+            >
+              {showForecast ? "Hide Forecast" : "Show Forecast"}
+            </button>
           </div>
         </form>
         <div>
-        {showMap && <>
-        <Maps></Maps>
-        </>}
+          {showMap && (
+            <>
+              <Maps></Maps>
+            </>
+          )}
         </div>
         {loading ? ( // Conditionally render the loader while loading is true
           <div className="loader-container">
